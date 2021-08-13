@@ -1,0 +1,7 @@
+.neptune
+.ipynb_checkpoints
+__pycache__
+raw_data
+processed_data
+plots
+models
