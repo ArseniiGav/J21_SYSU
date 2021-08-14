@@ -11,8 +11,15 @@ def sort_files(files):
              files_sorted.append(file)
     return files_sorted
 
+type_of_data = sys.argv[4]
+
+if type_of_data == 'i':
+    type_of_data = 'prd04_i'
+elif type_of_data == 'r':
+    type_of_data = 'prd04_r'
+
 energy = 'e+_'+sys.argv[1]#'e+_0'
-path = '/junofs/grid/production/ML/prd04_i/centos7_amd64_gcc830/Pre-Release/J21v1r0-Pre0/positron/uniform/{}.0momentums/elecsim_rec/group1'.format(energy)
+path = '/junofs/grid/production/ML/{}/centos7_amd64_gcc830/Pre-Release/J21v1r0-Pre0/positron/uniform/{}.0momentums/elecsim_rec/group1'.format(type_of_data, energy)
 
 df_targets = pd.DataFrame()
 files = os.listdir(path)
