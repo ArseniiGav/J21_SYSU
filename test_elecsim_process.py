@@ -15,8 +15,10 @@ type_of_data = sys.argv[4]
 
 if type_of_data == 'i':
     type_of_data = 'prd04_i'
+    option = 'ideal'
 elif type_of_data == 'r':
     type_of_data = 'prd04_r'
+    option = 'real'
 
 energy = 'e+_'+sys.argv[1]#'e+_0'
 path = '/junofs/grid/production/ML/{}/centos7_amd64_gcc830/Pre-Release/J21v1r0-Pre0/positron/uniform/{}.0momentums/elecsim_rec/group1'.format(type_of_data, energy)
@@ -82,7 +84,8 @@ for i in range(n_files):
     data['edepY'] = edepY_array
     data['edepZ'] = edepZ_array
     
-    #np.savez_compressed('processed_test/data/{}/raw_data_test_{}.npz'.format(energy, i+shift), a=raw_data)
-    df_targets = df_targets.append(data)
+    np.savez_compressed('/junofs/users/gavrikov/{}/test/data/{}/raw_data_test_{}.npz'.format(option, energy, i+shift), a=raw_data)
+    data.to_csv('/junofs/users/gavrikov/{}/test/targets/{}/targets_test_{}.csv'.format(option, energy, i+shift), index=False)
+    #df_targets = df_targets.append(data)
 
-df_targets.to_csv('processed_test/targets/{}/targets_test.csv'.format(energy), index=False)
+#df_targets.to_csv('/junofs/users/gavrikov/{}/test/targets/{}/targets_test.csv'.format(option, energy), index=False)

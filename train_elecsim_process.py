@@ -12,21 +12,23 @@ def sort_files(files):
     return files_sorted
 
 ind = int(sys.argv[1])
-type_of_data = sys.argv[2]
+type_of_data = sys.argv[3]
+n_files = int(sys.argv[2])
 
 if type_of_data == 'i':
     type_of_data = 'prd04_i'
+    option = 'ideal'
 elif type_of_data == 'r':
     type_of_data = 'prd04_r'
-    part = int(sys.argv[3])
+    option = 'ideal'
 
 path = '/junofs/grid/production/ML/{}/centos7_amd64_gcc830/Pre-Release/J21v1r0-Pre0/positron/uniform/e+_0.0momentums_10.0momentums-extra-params/elecsim_rec/group1'.format(type_of_data)
 
-df_targets = pd.DataFrame()
+#df_targets = pd.DataFrame()
 files = os.listdir(path)
 
 files = sort_files(files)
-files = sorted(files)[ind:ind+1]
+files = sorted(files)[ind:ind+n_files]
 
 for i in range(len(files)):
     print('Processed {} file...'.format(i+1))
@@ -79,14 +81,8 @@ for i in range(len(files)):
     data['edepY'] = edepY_array
     data['edepZ'] = edepZ_array
 
-    if type_of_data=='prd04_i':
-        np.savez_compressed('processed_train/data/raw_data_train_{}.npz'.format(ind), a=raw_data)
-    elif type_of_data=='prd04_r':
-        if part==0:
-            np.savez_compressed('processed_train/data/raw_data_train_{}_{}.npz'.format(ind, part), a=raw_data[:, :2500])
-        elif part==1:
-            np.savez_compressed('processed_train/data/raw_data_train_{}_{}.npz'.format(ind, part), a=raw_data[:, 2500:])
+    np.savez_compressed('/junofs/users/gavrikov/{}/train/data/raw_data_train_{}.npz'.format(option, ind+i), a=raw_data)
+    data.to_csv('/junofs/users/gavrikov/{}/train/targets/targets_train_{}.csv'.format(option, ind+i), index=False)
+    #df_targets = df_targets.append(data)
 
-    df_targets = df_targets.append(data)
-
-df_targets.to_csv('processed_train/targets/targets_train_{}.csv'.format(ind), index=False)
+#df_targets.to_csv('/junofs/users/gavrikov/{}/train/targets/targets_train_{}.csv'.format(option, ind), index=False)
