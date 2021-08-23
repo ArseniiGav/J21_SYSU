@@ -11,6 +11,13 @@ def natural_sort_key(s):
     return [int(text) if text.isdigit() else text.lower()
             for text in re.split(_nsre, s)]
 
+def sort_files(files):
+    files_sorted = []
+    for file in files:
+        if 'einit' not in file:
+             files_sorted.append(file)
+    return files_sorted
+
 PMTPos_CD_LPMT = pd.read_csv('PMTPos_CD_LPMT.csv')
 
 option = sys.argv[1]
@@ -52,6 +59,7 @@ for en_value in tqdm(range(size), title):
     files_data.sort(key=natural_sort_key)
 
     files_targets = os.listdir(path+'targets'+energy)
+    files_targets = sort_files(files_targets)
     files_targets.sort(key=natural_sort_key)
 
     df = pd.DataFrame()
