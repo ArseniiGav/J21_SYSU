@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd 
 import numba
 
-PMT_ID_conversion = pd.read_csv('PMT_ID_conversion.csv')
+PMT_ID_conversion = pd.read_csv('~/J21_SYSU/PMT_ID_conversion.csv')
 cd_ids = np.array(PMT_ID_conversion['CdID'])
 pmt_ids = np.array(PMT_ID_conversion['PMTID'])
 
