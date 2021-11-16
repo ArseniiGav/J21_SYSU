@@ -9,6 +9,8 @@ feature_selection
 data
 response_matrix
 calib
+subdetectors/three_subs
+subdetectors/equidistant_subs
 FCDNN/saved_networks/
 FCDNN/JSYSU-*/models_saved
 FCDNN/JSYSU-*/results
